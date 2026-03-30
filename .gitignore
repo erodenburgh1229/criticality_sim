@@ -1,0 +1,26 @@
+# Cargo build artifacts
+debug/
+target/
+
+# Rustfmt backup files
+**/*.rs.bk
+
+# MSVC/windows debug symbols
+**/*.pdb
+
+# Generated documentation
+/doc/
+
+# Temporary files
+*.swp
+*.swo
+*.tmp 
+*.log
+
+# IDE/editor folers
+.vscode/
+.idea/
+*.iml
+
+# OS-specific files
+Thumbs.db           # Windows
