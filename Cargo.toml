@@ -1,0 +1,3 @@
+[workspace]
+resolver = "3" #sets latest version of Cargo resolver algorithm
+members = ["crates/critsim_math"]
