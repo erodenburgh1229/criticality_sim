@@ -1,0 +1,60 @@
+VECTOR OPERATIONS (GENERIC)
+
+Core Arithmetic
+
+* add(a, b)
+* sub(a, b)
+* mul_scalar(v, s)
+* div_scalar(v, s)
+* neg(v)
+
+Dot & Magnitude
+
+* dot(a, b)
+* length(v)
+* length_squared(v)
+
+Distance
+
+* distance(a, b)
+* distance_squared(a, b)
+
+Normalization
+
+* normalize(v)
+
+Interpolation
+
+* lerp(a, b, t)
+
+Projection & Decomposition
+
+* project(a, b)
+* reject(a, b)
+
+Element-wise Operations
+
+* hadamard(a, b)
+* min(a, b)
+* max(a, b)
+* clamp(v, min, max)
+* abs(v)
+
+Reductions
+
+* sum(v)
+* product(v)
+
+Comparisons
+
+* equal(a, b)
+* near_equal(a, b, epsilon)
+
+Angles & Geometry
+
+* angle_between(a, b)
+
+Physics / Graphics
+
+* reflect(v, n)
+* refract(v, n, eta)
