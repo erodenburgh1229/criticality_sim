@@ -18,7 +18,7 @@ impl<T> Vec2<T> {
 // Restrict these functions to types that implement the num_traits::Float traits
 impl<T> Vec2<T>
 where 
-    T: Copy + std::ops::Div<Output=T> + std::ops::Neg<Output=T> + Float
+    T: Copy + std::ops::Div<Output=T> + Float
 {
     pub fn div_scalar(&self, scalar: T) -> Self {
         Vec2 {
@@ -30,6 +30,7 @@ where
 
 // The Copy trait says that a types values can be implicitly copied because no destructor or heap allocation is needed
 // Types that are copy are implicitly copied when assigned or passed to functions
+// Neg function could be moved out of this block if we want to allow for non-number types to be stored and negated (booleans)
 impl <T> VectorOps for Vec2<T> 
 where 
     T: Copy + std::ops::Add<Output=T> + std::ops::Sub<Output=T> + std::ops::Mul<Output=T> + std::ops::Neg<Output=T>
