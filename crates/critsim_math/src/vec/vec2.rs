@@ -1,6 +1,3 @@
-use crate::vec::traits::VectorOps;
-use num_traits::Float;
-
 // This makes the Vec2 struct copiable, cloneable, and easier to debug
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Vec2<T> {
