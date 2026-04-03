@@ -15,52 +15,105 @@ impl<T> Vec2<T> {
     }
 }
 
-// Restrict these functions to types that implement the num_traits::Float traits
-impl<T> Vec2<T>
+// ------ Basic math operator traits ------
+// Implement the Add trait for cleaner and more idiomatic API approach
+// The same is being done for Sub, Mul (with scalar only), Div (with scalar only)
+use std::ops::Add;
+
+impl<T> Add for Vec2<T>
 where 
-    T: Copy + std::ops::Div<Output=T> + Float
+    T: Copy + std::ops::Add<Output=T>
 {
-    pub fn div_scalar(&self, scalar: T) -> Self {
-        Vec2 {
-            x: self.x / scalar, 
-            y: self.y / scalar 
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Vec2 { 
+            x: self.x + other.x, 
+            y: self.y + other.y
         }
     }
 }
 
-// The Copy trait says that a types values can be implicitly copied because no destructor or heap allocation is needed
-// Types that are copy are implicitly copied when assigned or passed to functions
-// Neg function could be moved out of this block if we want to allow for non-number types to be stored and negated (booleans)
-impl <T> VectorOps for Vec2<T> 
+use std::ops::Sub;
+
+impl<T> Sub for Vec2<T> 
 where 
-    T: Copy + std::ops::Add<Output=T> + std::ops::Sub<Output=T> + std::ops::Mul<Output=T> + std::ops::Neg<Output=T>
+    T: Copy + std::ops::Sub<Output=T>
 {
-    type Scalar = T;
-    fn add(&self, other: &Self) -> Self {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
         Vec2 { 
-            x: self.x + other.x, 
-            y: self.y + other.y 
+            x: self.x - other.x, 
+            y: self.y - other.y 
         }
     }
+}
 
-    fn sub(&self, other: &Self) -> Self {
-        Vec2 { 
-            x: self.x - other.x,
-            y: self.y - other.y 
-         }
-    }
+// Because we are implementing the Mul trait for only scalars, we need to constrain the rhs type
+// to be the same type as the data held within Vec2<T>
+use std::ops::Mul;
 
-    fn mult_scalar(&self, scalar: Self::Scalar) -> Self {
+impl<T> Mul<T> for Vec2<T>
+where 
+    T: Copy + std::ops::Mul<Output=T>
+{
+    type Output = Self;
+
+    fn mul(self, scalar: T) -> Self {
         Vec2 { 
             x: self.x * scalar, 
             y: self.y * scalar 
         }
     }
+}
 
-    fn neg(&self) -> Self {
-        Vec2 {
-            x: -self.x,
-            y: -self.y
+use std::ops::Div;
+
+impl<T> Div<T> for Vec2<T>
+where 
+    T: Copy + std::ops::Div<Output=T>
+{
+    type Output = Self;
+
+    fn div(self, scalar: T) -> Self{
+        Vec2{
+            x: self.x / scalar,
+            y: self.y / scalar
+        }  
+    }
+}
+
+// ------ Tests ------
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    mod add {
+        use super::*;
+        #[test]
+        fn add_positives(){
+            let a = Vec2::new(1, 2);
+            let b = Vec2::new(1, 2);
+
+            assert_eq!(a + b, Vec2::new(2, 4));
+        }
+
+        #[test]
+        fn add_zeroes(){
+            let a = Vec2::new(1, 2);
+            let b = Vec2::new(0, 0);
+
+            assert_eq!(a + b, Vec2::new(1, 2));
+        }
+
+        #[test]
+        fn add_negatives(){
+            let a = Vec2::new(1, 2);
+            let b = Vec2::new(-1, -2);
+
+            assert_eq!(a + b, Vec2::new(0,0));
         }
     }
+
 }
