@@ -99,12 +99,10 @@ where
 // ------ Tests ------
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     mod add {
-        use super::*;
+        use super::super::*;
         #[test]
-        fn add_positives(){
+        fn add_positives_i32(){
             let a = Vec2::new(1, 2);
             let b = Vec2::new(1, 2);
 
@@ -112,7 +110,7 @@ mod tests {
         }
 
         #[test]
-        fn add_zeroes(){
+        fn add_zeroes_i32(){
             let a = Vec2::new(1, 2);
             let b = Vec2::new(0, 0);
 
@@ -120,7 +118,7 @@ mod tests {
         }
 
         #[test]
-        fn add_negatives(){
+        fn add_negatives_i32(){
             let a = Vec2::new(1, 2);
             let b = Vec2::new(-1, -2);
 
