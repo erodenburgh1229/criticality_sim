@@ -81,6 +81,21 @@ where
     }
 }
 
+use std::ops::Neg;
+
+impl<T> Neg for Vec2<T>
+where
+    T: Copy + std::ops::Neg<Output=T>
+{
+    type Output = Self;
+    fn neg(self) -> Self {
+        Vec2 {
+            x: -self.x,
+            y: -self.y
+        }
+    }
+}
+
 // ------ Tests ------
 #[cfg(test)]
 mod tests {
