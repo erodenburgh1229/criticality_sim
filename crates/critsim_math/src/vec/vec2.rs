@@ -1,3 +1,6 @@
+use num_traits::Float;
+
+use crate::vec::traits::FloatVectorOps;
 use crate::vec::traits::VectorOps;
 
 // This makes the Vec2 struct copiable, cloneable, and easier to debug
@@ -111,6 +114,18 @@ where
 
     fn length_squared(&self) -> T {
         self.x * self.x + self.y * self.y
+    }
+}
+
+// ------ FloatVectorOps Trait ------
+impl<T> FloatVectorOps for Vec2<T>
+where 
+    T: Copy + std::ops::Add<Output=T> + std::ops::Mul<Output=T> + Float
+{
+    type Scalar = T;
+
+    fn length(&self) -> Self::Scalar {
+        self.length_squared().sqrt()
     }
 }
 
