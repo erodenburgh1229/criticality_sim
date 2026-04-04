@@ -9,3 +9,9 @@ pub trait VectorOps {
     fn dot(&self, other: Self) -> Self::Scalar;
     fn length_squared(&self) -> Self::Scalar;
 }
+
+pub trait FloatVectorOps {
+    type Scalar;
+
+    fn length(&self) -> Self::Scalar;
+}
