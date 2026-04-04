@@ -166,4 +166,32 @@ mod tests {
             assert!(diff.x < epsilon && diff.y < epsilon);
         }
     }
+
+    mod sub{
+        use super::super::*;
+
+        #[test]
+        fn sub_positive_i32(){
+            let a = Vec2::new(4, 3);
+            let b = Vec2::new(1, 2);
+
+            assert_eq!(a - b, Vec2::new(3, 1));
+        }
+
+        #[test]
+        fn sub_negatives_i32(){
+            let a = Vec2::new(4, 3);
+            let b = Vec2::new(-1, -2);
+
+            assert_eq!(a - b, Vec2::new(5, 5));
+        }
+
+        #[test]
+        fn sub_zeroes_i32(){
+            let a = Vec2::new(4, 3);
+            let b = Vec2::new(0, 0);
+
+            assert_eq!(a - b, Vec2::new(4, 3));
+        }
+    }
 }
