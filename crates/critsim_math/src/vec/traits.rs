@@ -6,7 +6,7 @@ pub trait VectorOps {
     type Scalar;    // Allows this type to vary
 
     // Core arithmetic
-    fn dot(&self, other: Self) -> Self::Scalar;
+    fn dot(&self, other: &Self) -> Self::Scalar;
     fn length_squared(&self) -> Self::Scalar;
 }
 

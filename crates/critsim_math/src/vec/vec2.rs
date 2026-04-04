@@ -108,12 +108,12 @@ where
 {
     type Scalar = T;
 
-    fn dot(&self, other: Self) -> T {
+    fn dot(&self, other: &Self) -> T {
         self.x * other.x + self.y + other.y
     }
 
     fn length_squared(&self) -> T {
-        self.x * self.x + self.y * self.y
+        self.dot(self)
     }
 }
 
