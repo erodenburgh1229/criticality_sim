@@ -6,9 +6,8 @@ pub struct Vec2<T> {
 }
 
 impl<T> Vec2<T> {
-
     pub fn new(_x: T, _y: T) -> Self {
-        Self {x: _x, y: _y}
+        Self { x: _x, y: _y }
     }
 }
 
@@ -18,14 +17,14 @@ impl<T> Vec2<T> {
 use std::ops::Add;
 
 impl<T> Add for Vec2<T>
-where 
+where
     T: Copy + std::ops::Add<Output=T>
 {
     type Output = Self;
 
     fn add(self, other: Self) -> Self {
-        Vec2 { 
-            x: self.x + other.x, 
+        Vec2 {
+            x: self.x + other.x,
             y: self.y + other.y
         }
     }
@@ -33,16 +32,16 @@ where
 
 use std::ops::Sub;
 
-impl<T> Sub for Vec2<T> 
-where 
+impl<T> Sub for Vec2<T>
+where
     T: Copy + std::ops::Sub<Output=T>
 {
     type Output = Self;
 
     fn sub(self, other: Self) -> Self {
-        Vec2 { 
-            x: self.x - other.x, 
-            y: self.y - other.y 
+        Vec2 {
+            x: self.x - other.x,
+            y: self.y - other.y
         }
     }
 }
@@ -52,15 +51,15 @@ where
 use std::ops::Mul;
 
 impl<T> Mul<T> for Vec2<T>
-where 
+where
     T: Copy + std::ops::Mul<Output=T>
 {
     type Output = Self;
 
     fn mul(self, scalar: T) -> Self {
-        Vec2 { 
-            x: self.x * scalar, 
-            y: self.y * scalar 
+        Vec2 {
+            x: self.x * scalar,
+            y: self.y * scalar
         }
     }
 }
@@ -68,16 +67,16 @@ where
 use std::ops::Div;
 
 impl<T> Div<T> for Vec2<T>
-where 
+where
     T: Copy + std::ops::Div<Output=T>
 {
     type Output = Self;
 
-    fn div(self, scalar: T) -> Self{
-        Vec2{
+    fn div(self, scalar: T) -> Self {
+        Vec2 {
             x: self.x / scalar,
             y: self.y / scalar
-        }  
+        }
     }
 }
 
@@ -102,7 +101,7 @@ mod tests {
     mod add {
         use super::super::*;
         #[test]
-        fn add_positives_i32(){
+        fn add_positives_i32() {
             let a = Vec2::new(1, 2);
             let b = Vec2::new(1, 2);
 
@@ -110,7 +109,7 @@ mod tests {
         }
 
         #[test]
-        fn add_zeroes_i32(){
+        fn add_zeroes_i32() {
             let a = Vec2::new(1, 2);
             let b = Vec2::new(0, 0);
 
@@ -118,12 +117,53 @@ mod tests {
         }
 
         #[test]
-        fn add_negatives_i32(){
+        fn add_negatives_i32() {
             let a = Vec2::new(1, 2);
             let b = Vec2::new(-1, -2);
 
-            assert_eq!(a + b, Vec2::new(0,0));
+            assert_eq!(a + b, Vec2::new(0, 0));
+        }
+
+        #[test]
+        fn add_positives_f32() {
+            let a = Vec2::new(1.25, 2.0);
+            let b = Vec2::new(1.0, 2.25);
+
+            let result = a + b;
+            let expected = Vec2::new(2.25, 4.25);
+
+            let diff = result - expected;
+            let epsilon = 1e-10;
+
+            assert!(diff.x < epsilon && diff.y < epsilon);
+        }
+
+        #[test]
+        fn add_negatives_f32(){
+            let a = Vec2::new(1.25, 2.0);
+            let b = Vec2::new(-1.0, -2.25);
+
+            let result = a + b;
+            let expected = Vec2::new(0.25, -0.25);
+
+            let diff = result - expected;
+            let epsilon = 1e-10;
+
+            assert!(diff.x < epsilon && diff.y < epsilon);
+        }
+
+        #[test]
+        fn add_zeroes_f32(){
+            let a = Vec2::new(1.25, 2.0);
+            let b = Vec2::new(0.0, 0.0);
+
+            let result = a + b;
+            let expected = Vec2::new(1.25, 2.0);
+
+            let diff = result - expected;
+            let epsilon = 1e-10;
+
+            assert!(diff.x < epsilon && diff.y < epsilon);
         }
     }
-
 }
