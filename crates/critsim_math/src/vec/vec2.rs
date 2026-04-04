@@ -1,3 +1,5 @@
+use crate::vec::traits::VectorOps;
+
 // This makes the Vec2 struct copiable, cloneable, and easier to debug
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Vec2<T> {
@@ -92,6 +94,23 @@ where
             x: -self.x,
             y: -self.y
         }
+    }
+}
+
+// ------ VectorOps Trait ------
+// Restricting this impl block to float types only
+impl<T> VectorOps for Vec2<T>
+where 
+    T: Copy + std::ops::Add<Output=T> + std::ops::Mul<Output=T>
+{
+    type Scalar = T;
+
+    fn dot(&self, other: Self) -> T {
+        self.x * other.x + self.y + other.y
+    }
+
+    fn length_squared(&self) -> T {
+        self.x * self.x + self.y * self.y
     }
 }
 
