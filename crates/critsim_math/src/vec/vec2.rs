@@ -228,4 +228,32 @@ mod tests {
             assert_eq!(a - b, Vec2::new(4, 3));
         }
     }
+
+    mod mul{
+        use super::super::*;
+
+        #[test]
+        fn mul_positive_i32(){
+            let a = Vec2::new(2, 3);
+            let b = 2;
+
+            assert_eq!(a * b, Vec2::new(4, 6));
+        }
+
+        #[test]
+        fn mul_negative_i32(){
+            let a = Vec2::new(2, 3);
+            let b = -3;
+
+            assert_eq!(a * b, Vec2::new(-6, -9));
+        }
+
+        #[test]
+        fn mul_zero_i32(){
+            let a = Vec2::new(2, 3);
+            let b = 0;
+
+            assert_eq!(a * b, Vec2::new(0, 0));
+        }
+    }
 }
