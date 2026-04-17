@@ -170,7 +170,7 @@ mod tests {
 
             let diff = result - expected;
 
-            assert!(diff.x < EPSILON && diff.y < EPSILON);
+            assert!(diff.x.abs() < EPSILON && diff.y.abs() < EPSILON);
         }
 
         #[test]
@@ -183,7 +183,7 @@ mod tests {
 
             let diff = result - expected;
 
-            assert!(diff.x < EPSILON && diff.y < EPSILON);
+            assert!(diff.x.abs() < EPSILON && diff.y.abs() < EPSILON);
         }
 
         #[test]
@@ -196,11 +196,13 @@ mod tests {
 
             let diff = result - expected;
 
-            assert!(diff.x < EPSILON && diff.y < EPSILON);
+            assert!(diff.x.abs() < EPSILON && diff.y.abs() < EPSILON);
         }
     }
 
     mod sub{
+        use std::f32::EPSILON;
+
         use super::super::*;
 
         #[test]
@@ -225,6 +227,41 @@ mod tests {
             let b = Vec2::new(0, 0);
 
             assert_eq!(a - b, Vec2::new(4, 3));
+        }
+
+        #[test]
+        fn sub_positive_f32(){
+            let a = Vec2::new(4.0, 3.0);
+            let b = Vec2::new(1.0, 2.0);
+
+            let result = a - b;
+            let expected = Vec2::new(3.0, 1.0);
+            let diff = result - expected;
+
+            assert!(diff.x.abs() < EPSILON && diff.y.abs() < EPSILON);
+        }
+
+        #[test]
+        fn sub_negatives_f32(){
+            let a = Vec2::new(4.0, 3.0);
+            let b = Vec2::new(-1.0, -1.0);
+
+            let result = a - b;
+            let expected = Vec2::new(5.0, 4.0);
+            let diff = result - expected;
+
+            assert!(diff.x.abs() < EPSILON && diff.y.abs() < EPSILON);
+        }
+
+        #[test]
+        fn sub_zeroes_f32(){
+            let a = Vec2::new(4.0, 3.0);
+            let b = Vec2::new(0.0, 0.0);
+
+            let result = a - b;
+            let diff = a - result;
+
+            assert!(diff.x.abs() < EPSILON && diff.y.abs() < EPSILON);
         }
     }
 
