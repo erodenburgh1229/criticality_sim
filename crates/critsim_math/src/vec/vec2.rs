@@ -249,6 +249,14 @@ mod tests {
         }
 
         #[test]
+        fn mul_identity_i32(){
+            let a = Vec2::new(2, 3);
+            let b = 1;
+
+            assert_eq!(a * b, a);
+        }
+
+        #[test]
         fn mul_zero_i32(){
             let a = Vec2::new(2, 3);
             let b = 0;
