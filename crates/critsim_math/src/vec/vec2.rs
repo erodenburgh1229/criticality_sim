@@ -133,6 +133,8 @@ where
 #[cfg(test)]
 mod tests {
     mod add {
+        use std::f32::EPSILON;
+
         use super::super::*;
         #[test]
         fn add_positives_i32() {
@@ -167,9 +169,8 @@ mod tests {
             let expected = Vec2::new(2.25, 4.25);
 
             let diff = result - expected;
-            let epsilon = 1e-10;
 
-            assert!(diff.x < epsilon && diff.y < epsilon);
+            assert!(diff.x < EPSILON && diff.y < EPSILON);
         }
 
         #[test]
@@ -181,9 +182,8 @@ mod tests {
             let expected = Vec2::new(0.25, -0.25);
 
             let diff = result - expected;
-            let epsilon = 1e-10;
 
-            assert!(diff.x < epsilon && diff.y < epsilon);
+            assert!(diff.x < EPSILON && diff.y < EPSILON);
         }
 
         #[test]
@@ -195,9 +195,8 @@ mod tests {
             let expected = Vec2::new(1.25, 2.0);
 
             let diff = result - expected;
-            let epsilon = 1e-10;
 
-            assert!(diff.x < epsilon && diff.y < epsilon);
+            assert!(diff.x < EPSILON && diff.y < EPSILON);
         }
     }
 
