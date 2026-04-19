@@ -1,4 +1,5 @@
 use num_traits::Float;
+use num_traits::Zero;
 
 use crate::vec::traits::FloatVectorOps;
 use crate::vec::traits::VectorOps;
@@ -10,9 +11,20 @@ pub struct Vec2<T> {
     pub y: T
 }
 
-impl<T> Vec2<T> {
+impl<T> Vec2<T> 
+where 
+    T: Zero + Copy
+{
     pub fn new(_x: T, _y: T) -> Self {
         Self { x: _x, y: _y }
+    }
+
+    pub fn zero() -> Self {
+        Vec2::new(T::zero(), T::zero())
+    }
+
+    pub fn default() -> Self {
+        Self::zero()
     }
 }
 
@@ -120,12 +132,31 @@ where
 // ------ FloatVectorOps Trait ------
 impl<T> FloatVectorOps for Vec2<T>
 where 
-    T: Copy + std::ops::Add<Output=T> + std::ops::Mul<Output=T> + Float
+    T: Float
 {
     type Scalar = T;
 
-    fn length(&self) -> Self::Scalar {
+    fn length(self) -> Self::Scalar {
         self.length_squared().sqrt()
+    }
+
+    fn try_normalize(self) -> Option<Self> {
+        let len = self.length();
+        let eps = T::from(1e-6).unwrap();
+
+        if len <= eps {
+            None
+        } else {
+            Some(self / len)
+        }
+    }
+
+    fn normalize(self) -> Self {
+        self.try_normalize().unwrap_or_else(Self::zero)
+    }
+
+    fn normalize_mut(&mut self) {
+        *self = self.try_normalize().unwrap_or_else(Self::zero);
     }
 }
 
