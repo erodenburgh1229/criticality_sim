@@ -13,7 +13,7 @@ pub trait VectorOps {
 pub trait FloatVectorOps : Sized{
     type Scalar;
 
-    fn length(self) -> Self::Scalar;
+    fn length(&self) -> Self::Scalar;
     fn normalize(self) -> Self;
     fn normalize_mut(&mut self);
     fn try_normalize(self) -> Option<Self>;
